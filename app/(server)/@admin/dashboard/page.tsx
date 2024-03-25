@@ -22,7 +22,7 @@ export default function UserManagement() {
         console.error("Error fetching data: ", error);
         setIsLoading(false);
       });
-  }, [users]);
+  }, []);
 
   const toggleUserStatus = async (userId: string, status: boolean) => {
     try {
