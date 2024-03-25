@@ -20,6 +20,49 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+## User Login
+
+Adam(admin):  
+username: Adam, password: Adam
+
+Jane(manager):  
+username: Jane, password: Jane
+
+Painter(member):  
+username: Painter, password: Painter
+
+John(senior):  
+username: John, password: John
+
+## Business Logic
+
+**Adam(admin):**
+
+Adam can manage users' role and enable/disable user login.
+
+**_Role management:_**
+
+Search the role first and press enter to change the role.
+
+**_Login permission:_**
+
+Switch to enable/disable user's access to the web app.
+
+**Jane(manager):**
+
+Jane can drag and drop paint card to different kanban lanes
+
+**Painter(member):**
+
+Painter can update the stock of paint cards at Inventory
+
+**John(Senior):**
+
+John can view the stock of paint cards
+
+John(senior):  
+username: John, password: John
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
