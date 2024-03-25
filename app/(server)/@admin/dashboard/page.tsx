@@ -57,7 +57,6 @@ export default function UserManagement() {
               <div className="px-4 py-2">{user.username}</div>
               <Combobox id={user.id} role={user.role} />
               <Switch
-                checked={user.isActive}
                 onCheckedChange={() =>
                   toggleUserStatus(user.id, !user.isActive)
                 }
