@@ -9,6 +9,7 @@ import Combobox from "@/components/combobox/Combobox";
 export default function UserManagement() {
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [active, setActive] = useState<boolean>(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -34,6 +35,7 @@ export default function UserManagement() {
           user.id === userId ? { ...user, isActive: status } : user
         )
       );
+      setActive(status);
     } catch (error) {
       console.error("Error updating user status", error);
     }
@@ -57,6 +59,7 @@ export default function UserManagement() {
               <div className="px-4 py-2">{user.username}</div>
               <Combobox id={user.id} role={user.role} />
               <Switch
+                checked={active}
                 onCheckedChange={() =>
                   toggleUserStatus(user.id, !user.isActive)
                 }
