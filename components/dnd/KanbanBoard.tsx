@@ -58,8 +58,8 @@ export default function KanbanBoard() {
       >
         <div className="grid grid-cols-3 gap-4">
           <KanbanLane title="Available" items={availableItems} />
-          <KanbanLane title="Low Stock" items={lowItems} />
-          <KanbanLane title="Out of Stock" items={outItems} />
+          <KanbanLane title="Low" items={lowItems} />
+          <KanbanLane title="Out" items={outItems} />
         </div>
       </DndContext>
     </div>
