@@ -34,7 +34,6 @@ export default function UserManagement() {
         {
           headers: {
             "Content-Type": "application/json",
-            Origin: "https://stock-status-gamma.vercel.app/",
           },
         }
       );
