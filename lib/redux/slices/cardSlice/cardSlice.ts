@@ -15,9 +15,6 @@ const initialState: CardsState = {
 export const fetchCards = createAsyncThunk<CardType[]>(
   "cards/fetchCards",
   async () => {
-    // const response = await axios.get<CardType[]>(
-    //   `${process.env.API_HOST}/paints`
-    // );
     const response = await axios.get<CardType[]>(
       `${process.env.NEXT_PUBLIC_API_HOST}/paints`
     );
@@ -28,9 +25,6 @@ export const editCard = createAsyncThunk<
   CardType,
   { id: string; count: number; status: string }
 >("cards/editCard", async ({ id, count, status }) => {
-  // const response = await axios.get<CardType[]>(
-  //   `${process.env.API_HOST}/paints`
-  // );
   if (count > 10) {
     status = "available";
   } else if (count > 0 && count <= 10) {
