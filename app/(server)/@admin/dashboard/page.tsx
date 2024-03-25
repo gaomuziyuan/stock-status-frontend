@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { User } from "@/lib/types/user";
 import { Switch } from "@/components/ui/switch";
+import Combobox from "@/components/combobox/Combobox";
 
 export default function UserManagement() {
   const [users, setUsers] = useState<User[]>([]);
@@ -12,7 +13,7 @@ export default function UserManagement() {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get("http://localhost:3001/users")
+      .get("https://stock-status-backend.vercel.app/users")
       .then((response) => {
         setUsers(response.data);
         setIsLoading(false);
@@ -25,9 +26,12 @@ export default function UserManagement() {
 
   const toggleUserStatus = async (userId: string, status: boolean) => {
     try {
-      await axios.patch(`http://localhost:3001/users/${userId}`, {
-        isActive: status,
-      });
+      await axios.patch(
+        `https://stock-status-backend.vercel.app/users/${userId}`,
+        {
+          isActive: status,
+        }
+      );
       setUsers(
         users.map((user) =>
           user.id === userId ? { ...user, isActive: status } : user
@@ -54,7 +58,7 @@ export default function UserManagement() {
             <React.Fragment key={user.id}>
               <div className="px-4 py-2">{user.id}</div>
               <div className="px-4 py-2">{user.username}</div>
-              <div className="px-4 py-2">{user.role}</div>
+              <Combobox id={user.id} role={user.role} />
               <Switch
                 checked={user.isActive}
                 onCheckedChange={() =>

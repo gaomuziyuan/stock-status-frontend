@@ -4,6 +4,7 @@ interface UserState {
   isLoggedIn: boolean;
   username: string | null;
   role: string;
+  isActive: boolean;
 }
 
 interface LoginPayload {
@@ -16,6 +17,7 @@ const initialState: UserState = {
   isLoggedIn: false,
   username: null,
   role: "",
+  isActive: true,
 };
 
 export const userSlice = createSlice({

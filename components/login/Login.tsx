@@ -17,12 +17,12 @@ export default function Login() {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:3001/users?username=${username}&password=${password}`
+        `https://stock-status-backend.vercel.app/users?username=${username}&password=${password}`
       );
       const users = response.data;
       if (users.length > 0) {
         const userData = users[0];
-        if (userData.password === password) {
+        if (userData.password === password && userData.isActive) {
           dispatch(
             setLoginState({
               isLoggedIn: true,

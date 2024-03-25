@@ -19,7 +19,7 @@ export const fetchCards = createAsyncThunk<CardType[]>(
     //   `${process.env.API_HOST}/paints`
     // );
     const response = await axios.get<CardType[]>(
-      `http://localhost:3001/paints`
+      `https://stock-status-backend.vercel.app/paints`
     );
     return response.data;
   }
@@ -39,7 +39,7 @@ export const editCard = createAsyncThunk<
     status = "out";
   }
   const response = await axios.patch<CardType>(
-    `http://localhost:3001/paints/${id}`,
+    `https://stock-status-backend.vercel.app/paints/${id}`,
     {
       id,
       count,
