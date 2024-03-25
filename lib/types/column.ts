@@ -1,4 +1,4 @@
-import { Card } from "./cardType";
+import { CardType } from "./cardType";
 
 export enum ColumnType {
   Available = "available",
@@ -8,5 +8,5 @@ export enum ColumnType {
 
 export type Column = {
   id: ColumnType;
-  cards: Card[];
+  cards: CardType[];
 };
