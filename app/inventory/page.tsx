@@ -1,11 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  UpdateCard,
-  editCard,
-  fetchCards,
-} from "@/lib/redux/slices/cardSlice/cardSlice";
+import { editCard, fetchCards } from "@/lib/redux/slices/cardSlice/cardSlice";
 import { AppDispatch, RootState } from "@/lib/redux/store";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

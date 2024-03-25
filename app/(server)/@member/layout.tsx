@@ -5,7 +5,11 @@ import { fetchMenus } from "@/lib/action/action";
 import { MenusType } from "@/lib/types/menu";
 import React, { useEffect, useState } from "react";
 
-function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function MemberLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [menus, setMenus] = useState<MenusType[]>([]);
   useEffect(() => {
     fetchMenus()
@@ -17,7 +21,10 @@ function AdminLayout({ children }: { children: React.ReactNode }) {
       });
   }, []);
 
-  return <div className="flex flex-col justify-between w-full">{children}</div>;
+  return (
+    <div className="flex flex-col justify-between w-full">
+      <Header />
+      {children}
+    </div>
+  );
 }
-
-export default AdminLayout;

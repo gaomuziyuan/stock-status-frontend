@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { setLoginState } from "@/lib/redux/slices/userSlice/userSlice";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -9,6 +11,7 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleLogin = async () => {
     setIsLoading(true);
@@ -18,17 +21,17 @@ export default function Login() {
       );
       const users = response.data;
       if (users.length > 0) {
-        const user = users[0];
-        if (user.password === password) {
-          if (user.role === "admin") {
-            router.push("/admin/dashboard");
-          } else if (user.role === "manager") {
-            router.push("/manager/dashboard");
-          } else if (user.role === "member") {
-            router.push("/member/dashboard");
-          } else if (user.role === "senior") {
-            router.push("/senior/dashboard");
-          }
+        const userData = users[0];
+        if (userData.password === password) {
+          userData;
+          dispatch(
+            setLoginState({
+              isLoggedIn: true,
+              username: userData.username,
+              role: userData.role,
+            })
+          );
+          router.push("/dashboard");
           setError("");
         } else {
           setError("Password is incorrect");

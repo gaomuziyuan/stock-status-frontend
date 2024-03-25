@@ -1,7 +1,7 @@
 import Header from "@/components/header/Header";
 import React from "react";
 
-function AdminLayout({ children }: { children: React.ReactNode }) {
+function InventoryLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col justify-between w-full">
       <Header />
@@ -10,4 +10,4 @@ function AdminLayout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default AdminLayout;
+export default InventoryLayout;

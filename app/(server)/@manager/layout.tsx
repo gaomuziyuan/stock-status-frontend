@@ -1,7 +1,11 @@
 import Header from "@/components/header/Header";
 import React from "react";
 
-function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function ManagerLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <div className="flex flex-col justify-between w-full">
       <Header />
@@ -9,5 +13,3 @@ function AdminLayout({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-
-export default AdminLayout;
