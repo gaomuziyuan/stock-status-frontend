@@ -12,7 +12,7 @@ export default function UserManagement() {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get("https://stock-status-backend.vercel.app/users")
+      .get(`${process.env.NEXT_PUBLIC_API_HOST}/users`)
       .then((response) => {
         setUsers(response.data);
         setIsLoading(false);
@@ -25,12 +25,9 @@ export default function UserManagement() {
 
   const toggleUserStatus = async (userId: string, status: boolean) => {
     try {
-      await axios.patch(
-        `https://stock-status-backend.vercel.app/users/${userId}`,
-        {
-          isActive: status,
-        }
-      );
+      await axios.patch(`${process.env.NEXT_PUBLIC_API_HOST}/users/${userId}`, {
+        isActive: status,
+      });
       setUsers(
         users.map((user) =>
           user.id === userId ? { ...user, isActive: status } : user

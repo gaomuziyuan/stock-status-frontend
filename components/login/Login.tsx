@@ -17,7 +17,7 @@ export default function Login() {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `https://stock-status-backend.vercel.app/users?username=${username}&password=${password}`
+        `${process.env.NEXT_PUBLIC_API_HOST}/users?username=${username}&password=${password}`
       );
       const users = response.data;
       if (users.length > 0) {
