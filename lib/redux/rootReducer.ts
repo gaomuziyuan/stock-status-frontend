@@ -6,6 +6,6 @@ import cardSlice from "./slices/cardSlice/cardSlice";
 const rootReducer = combineReducers({
   user: userSlice,
   counter: counterSlice,
-  card: cardSlice,
+  cards: cardSlice,
 });
 export default rootReducer;

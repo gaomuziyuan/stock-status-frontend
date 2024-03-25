@@ -2,31 +2,30 @@ import { DndContext, rectIntersection } from "@dnd-kit/core";
 import KanbanLane from "./KanbanLane";
 import { useEffect, useState } from "react";
 import { CardType } from "@/lib/types/cardType";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/lib/redux/store";
+import { fetchCards } from "@/lib/redux/slices/cardSlice/cardSlice";
 
 export default function KanbanBoard() {
   const [availableItems, setAvailableItems] = useState<CardType[]>([]);
   const [lowItems, setLowItems] = useState<CardType[]>([]);
   const [outItems, setOutItems] = useState<CardType[]>([]);
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    async function fetchPaints() {
-      try {
-        const response = await axios.get("http://localhost:3001/paints");
-        setAvailableItems(response.data);
-      } catch (error) {
-        console.error("There was a problem fetching the paints data:", error);
-      }
-    }
-    fetchPaints();
-  }, []);
+    dispatch(fetchCards());
+  }, [dispatch]);
+
+  const cards = useSelector((state: RootState) => state.cards.cards);
+  useEffect(() => {
+    setAvailableItems(cards);
+  }, [cards]);
 
   return (
     <div className="max-w-[85rem] px-4 py-3 sm:px-6 lg:px-8 lg:py-3 mx-auto">
       <DndContext
         collisionDetection={rectIntersection}
         onDragEnd={(e) => {
-          console.log(e);
           const container = e.over?.id;
           const title = e.active.data.current?.title ?? "";
           const index = e.active.data.current?.index ?? 0;
@@ -59,8 +58,8 @@ export default function KanbanBoard() {
       >
         <div className="grid grid-cols-3 gap-4">
           <KanbanLane title="Available" items={availableItems} />
-          <KanbanLane title="Low" items={lowItems} />
-          <KanbanLane title="Out" items={outItems} />
+          <KanbanLane title="Low Stock" items={lowItems} />
+          <KanbanLane title="Out of Stock" items={outItems} />
         </div>
       </DndContext>
     </div>

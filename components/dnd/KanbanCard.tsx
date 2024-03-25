@@ -9,6 +9,34 @@ import {
 } from "@/components/ui/card";
 import { CardType } from "@/lib/types/cardType";
 
+function getCardColorClass(id: string) {
+  switch (id) {
+    case "blue":
+      return "text-blue-500";
+    case "grey":
+      return "text-gray-500";
+    case "black":
+      return "text-black";
+    case "white":
+      return "text-white";
+    case "purple":
+      return "text-purple-500";
+    default:
+      return "";
+  }
+}
+function getStatusColorClass(status: string) {
+  switch (status) {
+    case "available":
+      return "text-green-500";
+    case "out":
+      return "text-red-500";
+    case "low":
+      return "text-orange-500";
+    default:
+      return "";
+  }
+}
 export default function KanbanCard({
   title,
   index,
@@ -32,6 +60,7 @@ export default function KanbanCard({
   const style = {
     transform: CSS.Translate.toString(transform),
   };
+
   return (
     <div
       style={{ transform: style.transform }}
@@ -39,14 +68,19 @@ export default function KanbanCard({
       {...attributes}
       ref={setNodeRef}
     >
-      <Card>
+      <Card className="bg-gray-300">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">{card.id}</CardTitle>
-          {card.id}
+          <CardTitle className={`text-xl ${getCardColorClass(card.id)}`}>
+            {card.id}
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{card.status}</div>
-          <p className="text-xs text-muted-foreground">{card.count}</p>
+          <div
+            className={`text-2xl font-bold ${getStatusColorClass(card.status)}`}
+          >
+            {card.status}
+          </div>
+          <p className="text-xl ">{card.count}</p>
         </CardContent>
       </Card>
     </div>
