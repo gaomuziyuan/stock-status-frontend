@@ -27,7 +27,7 @@ export default function UserManagement() {
   const toggleUserStatus = async (userId: string, status: boolean) => {
     try {
       await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_HOST}/users/${userId}`,
+        `https://stock-status-backend.vercel.app/users/${userId}`,
         {
           isActive: status,
         },
