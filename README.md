@@ -80,4 +80,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Deploy on Heroku
 
-Details in **_paint-kanban-frontend.yml_**
+**_paint-kanban-frontend.yml_**
