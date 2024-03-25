@@ -1,4 +1,3 @@
-import Header from "@/components/header/Header";
 import React from "react";
 
 function ManagerDashboardLayout({
@@ -6,12 +5,7 @@ function ManagerDashboardLayout({
 }: {
   kanbanboard: React.ReactNode;
 }) {
-  return (
-    <>
-      <Header />
-      {kanbanboard}
-    </>
-  );
+  return <>{kanbanboard}</>;
 }
 
 export default ManagerDashboardLayout;

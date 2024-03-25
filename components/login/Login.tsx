@@ -23,7 +23,6 @@ export default function Login() {
       if (users.length > 0) {
         const userData = users[0];
         if (userData.password === password) {
-          userData;
           dispatch(
             setLoginState({
               isLoggedIn: true,
