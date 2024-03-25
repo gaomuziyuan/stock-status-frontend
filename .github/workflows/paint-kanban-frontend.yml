@@ -26,10 +26,10 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v20
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: paint-kanban-frontend
+          heroku_email: muziyuangao@gmail.com
         if: github.ref == 'refs/heads/main'
