@@ -1,7 +1,11 @@
 "use client";
 
+import { setLoginState } from "@/lib/redux/slices/userSlice/userSlice";
 import { RootState } from "@/lib/redux/store";
-import { useSelector } from "react-redux";
+import { jwtDecode } from "jwt-decode";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "./loading";
 
 export default function ServerLayout({
   admin,
@@ -15,6 +19,25 @@ export default function ServerLayout({
   senior: React.ReactNode;
 }) {
   const user = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decodedToken: { username: string; role: string } = jwtDecode(token);
+      dispatch(
+        setLoginState({
+          isLoggedIn: true,
+          username: decodedToken.username,
+          role: decodedToken.role,
+        })
+      );
+    }
+  }, [dispatch, user]);
+
+  if (!user.role) {
+    return <Loading />;
+  }
 
   return (
     <>

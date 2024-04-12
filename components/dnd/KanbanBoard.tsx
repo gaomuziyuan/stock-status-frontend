@@ -31,28 +31,33 @@ export default function KanbanBoard() {
           const index = e.active.data.current?.index ?? 0;
           const parent = e.active.data.current?.parent ?? "Available";
           const card = e.active.data.current?.card ?? null;
-          if (container === "Available") {
-            setAvailableItems([...availableItems, card]);
-          } else if (container === "Low") {
-            setLowItems([...lowItems, card]);
-          } else {
-            setOutItems([...outItems, card]);
-          }
-          if (parent === "Available") {
-            setAvailableItems([
-              ...availableItems.slice(0, index),
-              ...availableItems.slice(index + 1),
-            ]);
-          } else if (parent === "Low") {
-            setLowItems([
-              ...lowItems.slice(0, index),
-              ...lowItems.slice(index + 1),
-            ]);
-          } else {
-            setOutItems([
-              ...outItems.slice(0, index),
-              ...outItems.slice(index + 1),
-            ]);
+          if (parent !== container) {
+            console.log(e.active);
+            console.log(container);
+            if (container === "Available") {
+              console.log(availableItems);
+              setAvailableItems([...availableItems, card]);
+            } else if (container === "Low") {
+              setLowItems([...lowItems, card]);
+            } else {
+              setOutItems([...outItems, card]);
+            }
+            if (parent === "Available") {
+              setAvailableItems([
+                ...availableItems.slice(0, index),
+                ...availableItems.slice(index + 1),
+              ]);
+            } else if (parent === "Low") {
+              setLowItems([
+                ...lowItems.slice(0, index),
+                ...lowItems.slice(index + 1),
+              ]);
+            } else {
+              setOutItems([
+                ...outItems.slice(0, index),
+                ...outItems.slice(index + 1),
+              ]);
+            }
           }
         }}
       >

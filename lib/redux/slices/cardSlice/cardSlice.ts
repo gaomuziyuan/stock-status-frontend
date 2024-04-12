@@ -16,7 +16,7 @@ export const fetchCards = createAsyncThunk<CardType[]>(
   "cards/fetchCards",
   async () => {
     const response = await axios.get<CardType[]>(
-      `${process.env.NEXT_PUBLIC_API_HOST}/paints`
+      `${process.env.NEXT_PUBLIC_API_HOST}/api/paints`
     );
     return response.data;
   }
@@ -25,15 +25,15 @@ export const editCard = createAsyncThunk<
   CardType,
   { id: string; count: number; status: string }
 >("cards/editCard", async ({ id, count, status }) => {
-  if (count > 10) {
+  if (count >= 10) {
     status = "available";
-  } else if (count > 0 && count <= 10) {
+  } else if (count > 0 && count < 10) {
     status = "low";
   } else {
     status = "out";
   }
   const response = await axios.patch<CardType>(
-    `${process.env.NEXT_PUBLIC_API_HOST}/paints/${id}`,
+    `${process.env.NEXT_PUBLIC_API_HOST}/api/paints/${id}`,
     {
       id,
       count,
@@ -55,9 +55,9 @@ export const cardSlice = createSlice({
       const card = state.cards.find((card) => card.id === id);
       if (card) {
         card.count = count;
-        if (card.count > 10) {
+        if (card.count >= 10) {
           card.status = "available";
-        } else if (card.count > 0 && card.count <= 10) {
+        } else if (card.count > 0 && card.count < 10) {
           card.status = "low";
         } else {
           card.status = "out";

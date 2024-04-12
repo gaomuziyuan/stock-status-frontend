@@ -81,7 +81,7 @@ const Combobox: React.FC<{ id: string; role: string }> = ({ id, role }) => {
                       setOpen(false);
                       try {
                         await axios.patch(
-                          `${process.env.NEXT_PUBLIC_API_HOST}/users/${id}`,
+                          `${process.env.NEXT_PUBLIC_API_HOST}/api/users/${id}`,
                           {
                             role: currentValue,
                           }
