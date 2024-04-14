@@ -18,7 +18,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import axios from "axios";
 
 interface Framework {
@@ -45,10 +44,13 @@ const frameworks: Framework[] = [
   },
 ];
 
-const Combobox: React.FC<{ id: string; role: string }> = ({ id, role }) => {
+const Combobox: React.FC<{ id: string; role: string; disabled: boolean }> = ({
+  id,
+  role,
+  disabled,
+}) => {
   const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState<string>(role);
-  const dispatch = useDispatch();
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -58,6 +60,7 @@ const Combobox: React.FC<{ id: string; role: string }> = ({ id, role }) => {
           role="combobox"
           aria-expanded={open}
           className="w-[200px] justify-between"
+          disabled={disabled}
         >
           {value
             ? frameworks.find((framework) => framework.value === value)?.label

@@ -58,12 +58,17 @@ export default function UserManagement() {
             <React.Fragment key={user.id}>
               <div className="px-4 py-2">{user.id}</div>
               <div className="px-4 py-2">{user.username}</div>
-              <Combobox id={user.id} role={user.role} />
+              <Combobox
+                id={user.id}
+                role={user.role}
+                disabled={user.id === "1"}
+              />
               <Switch
                 checked={user.isActive}
                 onCheckedChange={() =>
                   toggleUserStatus(user.id, !user.isActive)
                 }
+                disabled={user.id === "1"}
               />
             </React.Fragment>
           ))}
