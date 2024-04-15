@@ -1,10 +1,14 @@
 import { DndContext, rectIntersection } from "@dnd-kit/core";
 import KanbanLane from "./KanbanLane";
 import { useEffect, useState } from "react";
-import { CardType } from "@/lib/types/cardType";
+import { CardStatus, CardType } from "@/lib/types/cardType";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/redux/store";
-import { fetchCards } from "@/lib/redux/slices/cardSlice/cardSlice";
+import {
+  UpdateCard,
+  fetchCards,
+  updateCard,
+} from "@/lib/redux/slices/cardSlice/cardSlice";
 
 export default function KanbanBoard() {
   const [availableItems, setAvailableItems] = useState<CardType[]>([]);
@@ -16,9 +20,23 @@ export default function KanbanBoard() {
     dispatch(fetchCards());
   }, [dispatch]);
 
-  const cards = useSelector((state: RootState) => state.cards.cards);
+  const cards: CardType[] = useSelector(
+    (state: RootState) => state.cards.cards
+  );
   useEffect(() => {
-    setAvailableItems(cards);
+    const newAvailableItems = cards.filter(
+      (card) => card.status === ("Available" as CardStatus)
+    );
+    const newLowItems = cards.filter(
+      (card) => card.status === ("Low" as CardStatus)
+    );
+    const newOutItems = cards.filter(
+      (card) => card.status === ("Out" as CardStatus)
+    );
+
+    setAvailableItems(newAvailableItems);
+    setLowItems(newLowItems);
+    setOutItems(newOutItems);
   }, [cards]);
 
   return (
@@ -31,17 +49,16 @@ export default function KanbanBoard() {
           const index = e.active.data.current?.index ?? 0;
           const parent = e.active.data.current?.parent ?? "Available";
           const card = e.active.data.current?.card ?? null;
+          dispatch(updateCard({ id: title, status: container as CardStatus }));
           if (parent !== container) {
-            console.log(e.active);
-            console.log(container);
             if (container === "Available") {
-              console.log(availableItems);
               setAvailableItems([...availableItems, card]);
             } else if (container === "Low") {
               setLowItems([...lowItems, card]);
             } else {
               setOutItems([...outItems, card]);
             }
+
             if (parent === "Available") {
               setAvailableItems([
                 ...availableItems.slice(0, index),

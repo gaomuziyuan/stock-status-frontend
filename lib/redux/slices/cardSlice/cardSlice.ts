@@ -1,4 +1,4 @@
-import { CardType } from "@/lib/types/cardType";
+import { CardStatus, CardType } from "@/lib/types/cardType";
 import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -23,20 +23,26 @@ export const fetchCards = createAsyncThunk<CardType[]>(
 );
 export const editCard = createAsyncThunk<
   CardType,
-  { id: string; count: number; status: string }
->("cards/editCard", async ({ id, count, status }) => {
-  if (count >= 10) {
-    status = "available";
-  } else if (count > 0 && count < 10) {
-    status = "low";
-  } else {
-    status = "out";
-  }
+  { id: string; count: number }
+>("cards/editCard", async ({ id, count }) => {
   const response = await axios.patch<CardType>(
     `${process.env.NEXT_PUBLIC_API_HOST}/api/paints/${id}`,
     {
       id,
       count,
+    }
+  );
+  return response.data;
+});
+
+export const updateCard = createAsyncThunk<
+  CardType,
+  { id: string; status: string }
+>("cards/updateCard", async ({ id, status }) => {
+  const response = await axios.patch<CardType>(
+    `${process.env.NEXT_PUBLIC_API_HOST}/api/paints/${id}`,
+    {
+      id,
       status,
     }
   );
@@ -49,19 +55,12 @@ export const cardSlice = createSlice({
   reducers: {
     UpdateCard: (
       state,
-      action: PayloadAction<{ id: string; count: number }>
+      action: PayloadAction<{ id: string; status: CardStatus }>
     ) => {
-      const { id, count } = action.payload;
+      const { id, status } = action.payload;
       const card = state.cards.find((card) => card.id === id);
       if (card) {
-        card.count = count;
-        if (card.count >= 10) {
-          card.status = "available";
-        } else if (card.count > 0 && card.count < 10) {
-          card.status = "low";
-        } else {
-          card.status = "out";
-        }
+        card.status = status;
       }
     },
   },
@@ -84,7 +83,18 @@ export const cardSlice = createSlice({
         if (index !== -1) {
           state.cards[index] = action.payload;
         }
-      });
+      })
+      .addCase(
+        updateCard.fulfilled,
+        (state, action: PayloadAction<CardType>) => {
+          const index = state.cards.findIndex(
+            (card) => card.id === action.payload.id
+          );
+          if (index !== -1) {
+            state.cards[index] = action.payload;
+          }
+        }
+      );
   },
 });
 

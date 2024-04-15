@@ -16,8 +16,8 @@ function AdminInventoryPage() {
 
   const userRole = useSelector((state: RootState) => state.user.role);
 
-  function handleUpdatePaints(id: string, newCount: number, status: string) {
-    dispatch(editCard({ id, count: newCount, status }));
+  function handleEditPaints(id: string, newCount: number) {
+    dispatch(editCard({ id, count: newCount }));
   }
   return (
     <div className="p-4">
@@ -34,18 +34,14 @@ function AdminInventoryPage() {
               <Button
                 disabled={userRole === "senior" || userRole === "admin"}
                 variant="outline"
-                onClick={() =>
-                  handleUpdatePaints(card.id, card.count + 1, card.status)
-                }
+                onClick={() => handleEditPaints(card.id, card.count + 1)}
               >
                 +
               </Button>
               <Button
                 disabled={userRole === "senior" || userRole === "admin"}
                 variant="outline"
-                onClick={() =>
-                  handleUpdatePaints(card.id, card.count - 1, card.status)
-                }
+                onClick={() => handleEditPaints(card.id, card.count - 1)}
               >
                 -
               </Button>

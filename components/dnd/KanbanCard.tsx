@@ -27,11 +27,11 @@ function getCardColorClass(id: string) {
 }
 function getStatusColorClass(status: string) {
   switch (status) {
-    case "available":
+    case "Available":
       return "text-green-500";
-    case "out":
+    case "Out":
       return "text-red-500";
-    case "low":
+    case "Low":
       return "text-orange-500";
     default:
       return "";
