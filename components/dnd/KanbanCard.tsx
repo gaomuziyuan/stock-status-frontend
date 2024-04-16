@@ -76,7 +76,9 @@ export default function KanbanCard({
         </CardHeader>
         <CardContent>
           <div
-            className={`text-2xl font-bold ${getStatusColorClass(card.status)}`}
+            className={`text-xl font-bold w-full break-words ${getStatusColorClass(
+              card.status
+            )}`}
           >
             {card.status}
           </div>

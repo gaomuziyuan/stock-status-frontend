@@ -43,33 +43,39 @@ export default function UserManagement() {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 w-full">
       <h1 className="text-xl font-semibold mb-4">User Management</h1>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="grid grid-cols-4 gap-4">
-          <div className="font-bold">ID</div>
-          <div className="font-bold">Username</div>
-          <div className="font-bold">Role</div>
-          <div className="font-bold">Permission</div>
+        <div className="grid grid-cols-6">
+          <div className="font-bold p-2 col-span-1">ID</div>
+          <div className="font-bold p-2 col-span-1">User</div>
+          <div className="font-bold p-2 col-span-2">Role</div>
+          <div className="font-bold p-2 col-span-2">Permission</div>
 
           {users.map((user) => (
             <React.Fragment key={user.id}>
-              <div className="px-4 py-2">{user.id}</div>
-              <div className="px-4 py-2">{user.username}</div>
-              <Combobox
-                id={user.id}
-                role={user.role}
-                disabled={user.id === "1"}
-              />
-              <Switch
-                checked={user.isActive}
-                onCheckedChange={() =>
-                  toggleUserStatus(user.id, !user.isActive)
-                }
-                disabled={user.id === "1"}
-              />
+              <div className="grid items-center p-2 col-span-1">{user.id}</div>
+              <div className="grid items-center p-2 col-span-1">
+                {user.username}
+              </div>
+              <div className="grid items-center p-2 col-span-2">
+                <Combobox
+                  id={user.id}
+                  role={user.role}
+                  disabled={user.id === "1"}
+                />
+              </div>
+              <div className="grid items-center p-2 col-span-2">
+                <Switch
+                  checked={user.isActive}
+                  onCheckedChange={() =>
+                    toggleUserStatus(user.id, !user.isActive)
+                  }
+                  disabled={user.id === "1"}
+                />
+              </div>
             </React.Fragment>
           ))}
         </div>

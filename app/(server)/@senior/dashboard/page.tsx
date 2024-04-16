@@ -28,7 +28,7 @@ export default function SeniorDashboard() {
 
   return (
     <>
-      <div className="flex items-center justify-center bg-gray-100 mt-20">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4">
         {cards.map((card, key) => (
           <KanbanCard
             title={card.id}

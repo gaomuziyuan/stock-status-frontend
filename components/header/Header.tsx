@@ -35,7 +35,7 @@ export default function Header() {
   }, [dispatch]);
 
   return (
-    <div className="flex gap-3 mx-auto w-64">
+    <div className="flex gap-3 mx-auto w-full justify-center">
       {menus?.map((menu) => (
         <Button
           key={menu.id}
